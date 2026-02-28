@@ -1,0 +1,30 @@
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/.forge-snapshots/
+
+# Environment
+.env
+*.env.local
+
+# Dependencies (fetched via forge install)
+contracts/lib/
+
+# Node.js (for app/)
+node_modules/
+.next/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+*.log
