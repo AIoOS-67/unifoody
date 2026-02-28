@@ -15,16 +15,16 @@ const isTestnet = process.env.NEXT_PUBLIC_CHAIN_MODE === 'testnet'
 // ---------------------------------------------------------------------------
 
 const SEPOLIA = {
-  POOL_MANAGER: '0x1F98400000000000000000000000000000000004' as `0x${string}`,
-  SWAP_ROUTER: '0xEf740bf23aCaE26f6492B10De645D6b98dC8Eaf3' as `0x${string}`,   // Universal Router
-  POSITION_MANAGER: '0x4529A01c7A0410167c5740C487A8DE60232617bf' as `0x${string}`,
-  QUOTER: '0x333e3C607B141b18fF6dE9f258Db6E77Fe7491E0' as `0x${string}`,
-  STATE_VIEW: '0x86e8631a016f9068c3f085faf484ee3f5fdee8f2' as `0x${string}`,
+  POOL_MANAGER: '0x00B036B58a818B1BC34d502D3fE730Db729e62AC' as `0x${string}`,
+  SWAP_ROUTER: '0xf70536b3bcc1bd1a972dc186a2cf84cc6da6be5d' as `0x${string}`,   // Universal Router (Sepolia)
+  POSITION_MANAGER: '0xf969Aee60879C54bAAed9F3eD26147Db216Fd664' as `0x${string}`,
+  QUOTER: '0x56dcd40a3f2d466f48e7f48bdbe5cc9b92ae4472' as `0x${string}`,
+  STATE_VIEW: '0xc199f1072a74d4e905aba1a84d9a45e2546b6222' as `0x${string}`,
   PERMIT2: '0x000000000022D473030F116dDEE9F6B43aC78BA3' as `0x${string}`,
   FOODY_TOKEN: '0xf6f353078243c50eCca9af4D751A45816607Eb2a' as Currency,          // Deployed
-  USDC_TOKEN: '0x078D782b760474a361dDA0AF3839290b0EF57AD6' as Currency,           // USDC on Unichain
-  HOOK: '0xA25e61B83915D2e7E40167FB951C7Aa0a5b390C0' as `0x${string}`,            // Deployed
-  VIP_NFT: '0x4d70E1D2A2828438a03ce93394EAFf875B923e61' as `0x${string}`,         // Deployed
+  USDC_TOKEN: '0x31d0220469e10c4E71834a79b1f276d740d3768F' as Currency,           // USDC on Unichain Sepolia
+  HOOK: '0x4F0Be128768E33c402B7D5Df04Fd7923b1ba50C0' as `0x${string}`,            // Deployed (v2)
+  VIP_NFT: '0xc7415f2986e58a6158BbF30780E393C54622e54e' as `0x${string}`,         // Deployed (v2)
   CHAIN_ID: 1301,
   BLOCK_EXPLORER: 'https://sepolia.uniscan.xyz',
 } as const

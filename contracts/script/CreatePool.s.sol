@@ -28,21 +28,21 @@ contract CreatePoolScript is Script {
     // =========================================================================
     // Unichain Infrastructure (canonical V4 addresses)
     // =========================================================================
-    IPoolManager constant POOL_MANAGER = IPoolManager(0x1F98400000000000000000000000000000000004);
-    IPositionManager constant POSITION_MANAGER = IPositionManager(0x4529A01c7A0410167c5740C487A8DE60232617bf);
+    IPoolManager constant POOL_MANAGER = IPoolManager(0x00B036B58a818B1BC34d502D3fE730Db729e62AC);
+    IPositionManager constant POSITION_MANAGER = IPositionManager(0xf969Aee60879C54bAAed9F3eD26147Db216Fd664);
     IPermit2 constant PERMIT2 = IPermit2(0x000000000022D473030F116dDEE9F6B43aC78BA3);
 
-    // USDC on Unichain
-    IERC20 constant USDC = IERC20(0x078D782b760474a361dDA0AF3839290b0EF57AD6);
+    // USDC on Unichain Sepolia (official Circle testnet USDC)
+    IERC20 constant USDC = IERC20(0x31d0220469e10c4E71834a79b1f276d740d3768F);
 
     // Pool Configuration
     uint24 constant LP_FEE = 0x800000; // DYNAMIC_FEE_FLAG
     int24 constant TICK_SPACING = 60;
     int24 constant TARGET_TICK = -345420; // 1 FOODY ~ 0.001 USDC
 
-    // Liquidity amounts
-    uint256 constant FOODY_AMOUNT = 100_000e18;
-    uint256 constant USDC_AMOUNT = 100e6;
+    // Liquidity amounts (testnet: 20 USDC + 20K FOODY at 1 FOODY = $0.001)
+    uint256 constant FOODY_AMOUNT = 20_000e18;
+    uint256 constant USDC_AMOUNT = 20e6;
 
     function run() external {
         IERC20 foodyToken = IERC20(vm.envAddress("FOODY_TOKEN"));
