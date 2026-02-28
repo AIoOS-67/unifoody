@@ -1,66 +1,59 @@
-## Foundry
+# UniFoody Smart Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Uniswap V4 Hook + ERC-20 + ERC-721 for restaurant payments on Unichain.
 
-Foundry consists of:
+## Contracts
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+| Contract | Description |
+|----------|-------------|
+| `FoodySwapHook.sol` | V4 Hook: constraints, dynamic pricing, settlement + rewards |
+| `FoodyToken.sol` | ERC-20 "FoodyeCoin" (FOODY) with MINTER_ROLE, 1B max supply |
+| `FoodyVIPNFT.sol` | Soulbound ERC-721 for VIP tier ($1000+ spend) |
 
-## Documentation
+## Setup
 
-https://book.getfoundry.sh/
+```bash
+# Install Foundry
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 
-## Usage
+# Install dependencies
+forge install
 
-### Build
+# Build
+forge build
 
-```shell
-$ forge build
+# Test (29 tests: 18 unit + 5 fuzz + 6 utility)
+forge test -vv
+
+# Gas snapshot
+forge snapshot
 ```
 
-### Test
+## Deploy to Unichain Sepolia
 
-```shell
-$ forge test
+```bash
+cp .env.example .env
+# Fill in PRIVATE_KEY, ADMIN_ADDRESS, UNISCAN_API_KEY
+
+# 1. Deploy FOODY Token
+forge script script/DeployFoodyToken.s.sol --rpc-url unichain_sepolia --broadcast --verify
+
+# 2. Deploy FoodySwap Hook (CREATE2 salt mining)
+forge script script/DeployFoodySwap.s.sol --rpc-url unichain_sepolia --broadcast --verify
+
+# 3. Create FOODY/USDC Pool + Add Liquidity
+forge script script/CreatePool.s.sol --rpc-url unichain_sepolia --broadcast --verify
 ```
 
-### Format
+## Architecture
 
-```shell
-$ forge fmt
+```
+beforeSwap() -> Layer 1: Constraints (whitelist, hours, limits)
+             -> Layer 2: Dynamic Pricing (tier discount + peak hour)
+afterSwap()  -> Layer 3: Settlement (fee split, cashback, tier upgrade, VIP NFT)
 ```
 
-### Gas Snapshots
+## License
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+MIT

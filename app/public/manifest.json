@@ -1,14 +1,14 @@
 {
-  "name": "FoodyePay - Web3 餐饮支付",
-  "short_name": "FoodyePay",
-  "description": "Web3 + Smart Wallet + QR 支付的餐饮支付 DApp",
+  "name": "UniFoody - Web3 Restaurant Payments on Unichain",
+  "short_name": "UniFoody",
+  "description": "AI-powered restaurant payment platform with Uniswap V4 Hook on Unichain",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#1e40af",
+  "theme_color": "#FF007A",
   "orientation": "portrait",
   "scope": "/",
-  "lang": "zh-CN",
+  "lang": "en",
   "categories": ["food", "finance", "lifestyle"],
   "icons": [
     {

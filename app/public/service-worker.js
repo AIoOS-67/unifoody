@@ -1,7 +1,7 @@
-// FoodyePay Service Worker v2 — Caching + Push + Offline
-const CACHE_VERSION = 'v2';
-const STATIC_CACHE = `foodyepay-static-${CACHE_VERSION}`;
-const API_CACHE = `foodyepay-api-${CACHE_VERSION}`;
+// UniFoody Service Worker v3 — Caching + Push + Offline
+const CACHE_VERSION = 'v3';
+const STATIC_CACHE = `unifoody-static-${CACHE_VERSION}`;
+const API_CACHE = `unifoody-api-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
   '/FoodyePayLogo.png',
@@ -11,7 +11,7 @@ const STATIC_ASSETS = [
 
 // Install: cache static assets
 self.addEventListener('install', (event) => {
-  console.log('[FoodyePay SW] Installing...');
+  console.log('[UniFoody SW] Installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS))
   );
@@ -20,7 +20,7 @@ self.addEventListener('install', (event) => {
 
 // Activate: cleanup old caches
 self.addEventListener('activate', (event) => {
-  console.log('[FoodyePay SW] Activating...');
+  console.log('[UniFoody SW] Activating...');
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
@@ -71,10 +71,10 @@ self.addEventListener('push', (event) => {
   try {
     data = event.data?.json() || {};
   } catch (e) {
-    data = { title: 'FoodyePay', body: event.data?.text() || 'New notification' };
+    data = { title: 'UniFoody', body: event.data?.text() || 'New notification' };
   }
 
-  const title = data.title || 'FoodyePay';
+  const title = data.title || 'UniFoody';
   const options = {
     body: data.body || 'New notification',
     icon: '/icons/icon-192x192.png',
@@ -174,7 +174,7 @@ async function networkFirstWithOfflineFallback(request) {
     // Return a basic offline message for navigation requests
     if (request.mode === 'navigate') {
       return new Response(
-        '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FoodyePay - Offline</title><style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-family:system-ui}div{text-align:center;padding:2rem}.logo{width:80px;height:80px;margin:0 auto 1.5rem}h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#9ca3af;margin-bottom:1.5rem}button{background:#2563eb;color:#fff;border:none;padding:.75rem 2rem;border-radius:.5rem;font-size:1rem;cursor:pointer}</style></head><body><div><img src="/FoodyePayLogo.png" alt="FoodyePay" class="logo"><h1>You\'re Offline</h1><p>Please check your internet connection and try again.</p><button onclick="location.reload()">Retry</button></div></body></html>',
+        '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UniFoody - Offline</title><style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-family:system-ui}div{text-align:center;padding:2rem}.logo{width:80px;height:80px;margin:0 auto 1.5rem}h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#9ca3af;margin-bottom:1.5rem}button{background:#FF007A;color:#fff;border:none;padding:.75rem 2rem;border-radius:.5rem;font-size:1rem;cursor:pointer}</style></head><body><div><img src="/FoodyePayLogo.png" alt="UniFoody" class="logo"><h1>You\'re Offline</h1><p>Please check your internet connection and try again.</p><button onclick="location.reload()">Retry</button></div></body></html>',
         { headers: { 'Content-Type': 'text/html' } }
       );
     }
@@ -184,5 +184,5 @@ async function networkFirstWithOfflineFallback(request) {
 }
 
 async function retryFailedPayments() {
-  console.log('[FoodyePay SW] Background sync: retry-payment');
+  console.log('[UniFoody SW] Background sync: retry-payment');
 }
