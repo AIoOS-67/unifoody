@@ -402,4 +402,69 @@ contract FoodySwapHookTest is BaseTest {
         uint256 rewardsAfter = hook.totalRewardsDistributed();
         assertGt(rewardsAfter, rewardsBefore, "Rewards should increase after swap");
     }
+
+    // =========================================================================
+    // Test: quoteSwap() — AI Agent Swap Simulation
+    // =========================================================================
+
+    function testQuoteSwap_ActiveRestaurant() public view {
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(alice, restaurantId, 50e6);
+        assertTrue(quote.allowed, "Should be allowed for active restaurant");
+        assertEq(bytes(quote.reason).length, 0, "No denial reason");
+        assertGt(quote.effectiveFee, 0, "Fee should be non-zero");
+        assertGt(quote.expectedCashbackFOODY, 0, "Should project cashback");
+        assertEq(uint8(quote.currentTier), uint8(FoodySwapHook.Tier.Bronze), "New user = Bronze");
+        assertEq(quote.discountBps, 200, "Bronze discount = 200 bps");
+        assertEq(quote.rewardRateBps, 300, "Bronze reward = 300 bps");
+    }
+
+    function testQuoteSwap_InactiveRestaurant() public view {
+        bytes32 fakeId = keccak256("nonexistent-restaurant");
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(alice, fakeId, 50e6);
+        assertFalse(quote.allowed, "Should not be allowed for inactive restaurant");
+        assertGt(bytes(quote.reason).length, 0, "Should have a denial reason");
+    }
+
+    function testQuoteSwap_ExceedsMaxTx() public {
+        // Add restaurant with $100 max
+        bytes32 limitedId = keccak256("limited-restaurant");
+        vm.prank(admin);
+        hook.addRestaurant(limitedId, restaurantWallet, 0, 0, 100e6);
+
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(alice, limitedId, 200e6);
+        assertFalse(quote.allowed, "Should reject over-limit tx");
+        assertGt(bytes(quote.reason).length, 0, "Should have denial reason");
+    }
+
+    function testQuoteSwap_ProjectsTierUpgrade() public view {
+        // New user (bob) with $300 spend should project Silver ($200 threshold)
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(bob, restaurantId, 300e6);
+        assertTrue(quote.allowed, "Should be allowed");
+        assertEq(uint8(quote.currentTier), uint8(FoodySwapHook.Tier.Bronze), "Bob starts Bronze");
+        assertEq(uint8(quote.projectedTier), uint8(FoodySwapHook.Tier.Silver), "Should project Silver");
+    }
+
+    function testQuoteSwap_VIPMintProjection() public view {
+        // $1100 spend should project VIP tier + VIP NFT mint
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(bob, restaurantId, 1100e6);
+        assertTrue(quote.allowed, "Should be allowed");
+        assertEq(uint8(quote.projectedTier), uint8(FoodySwapHook.Tier.VIP), "Should project VIP");
+        assertTrue(quote.willMintVIP, "Should project VIP NFT mint");
+    }
+
+    // =========================================================================
+    // Test: getAgentProfile() — AI Agent One-Call Profile
+    // =========================================================================
+
+    function testGetAgentProfile_NewUser() public view {
+        FoodySwapHook.AgentProfile memory profile = hook.getAgentProfile(alice);
+        assertEq(profile.totalSpent, 0, "New user: no spend");
+        assertEq(profile.swapCount, 0, "New user: no swaps");
+        assertEq(uint8(profile.tier), uint8(FoodySwapHook.Tier.Bronze), "New user: Bronze");
+        assertEq(profile.discountBps, 200, "Bronze discount: 200 bps");
+        assertEq(profile.rewardRateBps, 300, "Bronze reward: 300 bps");
+        assertFalse(profile.isVIP, "Not VIP");
+        assertEq(profile.nextTierThreshold, 200e6, "Next tier at $200");
+        assertEq(profile.spentToNextTier, 200e6, "Need $200 more");
+    }
 }

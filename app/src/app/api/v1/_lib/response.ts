@@ -1,5 +1,5 @@
 // src/app/api/v1/_lib/response.ts
-// Standard API response envelope for the FoodyePay AI Agent API
+// Standard API response envelope for the UniFoody AI Agent API
 
 import { NextResponse } from 'next/server'
 import { corsHeaders, checkRateLimit, rateLimitHeaders } from './cors'
@@ -25,7 +25,7 @@ export interface ApiEnvelope<T = unknown> {
 // ---------------------------------------------------------------------------
 
 export const API_VERSION = '1.0.0'
-export const CHAIN_LABEL = process.env.NEXT_PUBLIC_CHAIN_MODE === 'testnet' ? 'base-sepolia' : 'base'
+export const CHAIN_LABEL = process.env.NEXT_PUBLIC_CHAIN_MODE === 'testnet' ? 'unichain-sepolia' : 'unichain'
 export const DEFAULT_RESTAURANT_ID = '785e4179-5dc6-4d46-83d1-3c75c126fbf1'
 
 // ---------------------------------------------------------------------------

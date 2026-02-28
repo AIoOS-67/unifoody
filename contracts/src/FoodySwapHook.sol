@@ -66,6 +66,38 @@ contract FoodySwapHook is BaseHook {
         uint256 maxTxAmount; // Max single transaction in USDC (6 decimals), 0 = no limit
     }
 
+    /// @notice AI Agent: Pre-execution swap simulation result
+    /// @dev Returned by quoteSwap() — lets agents preview outcomes before committing gas
+    struct SwapQuote {
+        bool allowed; // Whether the swap would pass constraints
+        string reason; // Actionable denial reason (empty if allowed)
+        uint24 effectiveFee; // Fee in bps after tier + peak hour discount
+        uint256 expectedCashbackFOODY; // Projected FOODY reward (18 decimals)
+        Tier currentTier; // User's current loyalty tier
+        Tier projectedTier; // Tier after this swap (may upgrade)
+        bool willMintVIP; // Whether VIP NFT would be minted
+        uint16 discountBps; // Discount applied (basis points)
+        uint16 rewardRateBps; // Cashback rate (basis points)
+    }
+
+    /// @notice AI Agent: Complete user profile in one call (replaces 5+ separate reads)
+    /// @dev Returned by getAgentProfile() — eliminates the "5 RPC calls" problem
+    struct AgentProfile {
+        uint256 totalSpent; // Cumulative USDC (6 decimals)
+        uint256 foodyEarned; // Cumulative FOODY rewards (18 decimals)
+        uint256 referralEarned; // FOODY from referrals (18 decimals)
+        Tier tier; // Current loyalty tier
+        address referrer; // Referrer address (0x0 if none)
+        uint64 lastSwapTime; // Timestamp of last swap
+        uint32 swapCount; // Total swaps
+        uint16 discountBps; // Current fee discount (basis points)
+        uint16 rewardRateBps; // Current cashback rate (basis points)
+        uint24 currentFee; // Effective fee right now (includes peak hour)
+        bool isVIP; // VIP NFT holder status
+        uint256 nextTierThreshold; // USDC needed for next tier (0 if VIP)
+        uint256 spentToNextTier; // Remaining USDC to next tier (0 if VIP)
+    }
+
     // =========================================================================
     // Constants
     // =========================================================================
@@ -121,7 +153,7 @@ contract FoodySwapHook is BaseHook {
     /// @notice Hook admin (can manage restaurants)
     address public admin;
 
-    /// @notice The existing FOODY token contract on Base
+    /// @notice The FOODY token contract on Unichain
     IFoodyToken public foodyToken;
 
     /// @notice The VIP NFT contract
@@ -451,6 +483,15 @@ contract FoodySwapHook is BaseHook {
         return BRONZE_REWARD_BPS;
     }
 
+    /// @dev Internal VIP check with graceful degradation (shared by isVIP, quoteSwap, getAgentProfile)
+    function _checkVIPStatus(address user) internal view returns (bool) {
+        try vipNFT.hasVIP(user) returns (bool result) {
+            return result;
+        } catch {
+            return false;
+        }
+    }
+
     // =========================================================================
     // Referral System
     // =========================================================================
@@ -562,15 +603,127 @@ contract FoodySwapHook is BaseHook {
 
     /// @notice Check if a user has VIP NFT (graceful degradation — never reverts)
     function isVIP(address user) external view returns (bool) {
-        try vipNFT.hasVIP(user) returns (bool result) {
-            return result;
-        } catch {
-            return false; // Degraded: treat as non-VIP if NFT contract call fails
-        }
+        return _checkVIPStatus(user);
     }
 
     /// @notice Get the current dynamic fee for a user (including peak hour adjustment)
     function getCurrentFeeForUser(address user) external view returns (uint24) {
         return _calculateDynamicFee(user);
+    }
+
+    // =========================================================================
+    // AI Agent Functions
+    // =========================================================================
+
+    /// @notice Simulate a swap for an AI agent — preview all outcomes without executing
+    /// @dev Pure computation, no state changes. Returns structured data instead of reverting.
+    ///      This is the killer feature for AI agents: simulate before committing gas.
+    /// @param user The user's wallet address
+    /// @param restaurantId The target restaurant (bytes32 hash)
+    /// @param amountUSDC The swap amount in USDC (6 decimals)
+    /// @return quote Full simulation result with fees, rewards, and tier projections
+    function quoteSwap(
+        address user,
+        bytes32 restaurantId,
+        uint256 amountUSDC
+    ) external view returns (SwapQuote memory quote) {
+        // --- Constraint check (Layer 1 simulation — soft returns, no reverts) ---
+        Restaurant storage restaurant = restaurants[restaurantId];
+
+        if (!restaurant.isActive) {
+            quote.allowed = false;
+            quote.reason = "Restaurant not active";
+            return quote;
+        }
+
+        // Operating hours check
+        if (restaurant.openHour != restaurant.closeHour) {
+            uint8 currentHour = uint8((block.timestamp / 3600) % 24);
+            bool isOpen;
+            if (restaurant.openHour < restaurant.closeHour) {
+                isOpen = currentHour >= restaurant.openHour && currentHour < restaurant.closeHour;
+            } else {
+                isOpen = currentHour >= restaurant.openHour || currentHour < restaurant.closeHour;
+            }
+            if (!isOpen) {
+                quote.allowed = false;
+                quote.reason = "Outside operating hours";
+                return quote;
+            }
+        }
+
+        // Max transaction check
+        if (restaurant.maxTxAmount > 0 && amountUSDC > restaurant.maxTxAmount) {
+            quote.allowed = false;
+            quote.reason = "Exceeds max transaction amount";
+            return quote;
+        }
+
+        // --- Passed all constraints ---
+        quote.allowed = true;
+
+        // --- Pricing simulation (Layer 2) ---
+        quote.effectiveFee = _calculateDynamicFee(user);
+        quote.discountBps = _getDiscountBps(loyalty[user].tier);
+        quote.rewardRateBps = _getRewardBps(loyalty[user].tier);
+
+        // --- Settlement simulation (Layer 3) ---
+        quote.currentTier = loyalty[user].tier;
+
+        // Projected total spend after this swap
+        uint256 projectedSpend = loyalty[user].totalSpent + amountUSDC;
+        quote.projectedTier = _calculateTier(projectedSpend);
+
+        // Will VIP NFT be minted?
+        quote.willMintVIP = (
+            quote.projectedTier == Tier.VIP && quote.currentTier != Tier.VIP && !_checkVIPStatus(user)
+        );
+
+        // Expected cashback — use projected tier's reward rate if tier upgrades
+        // (matches actual afterSwap behavior: tier upgrades before cashback)
+        Tier effectiveTier = quote.projectedTier > quote.currentTier ? quote.projectedTier : quote.currentTier;
+        uint16 effectiveRewardBps = _getRewardBps(effectiveTier);
+        uint256 rewardAmount = (amountUSDC * effectiveRewardBps) / 10000;
+        quote.expectedCashbackFOODY = rewardAmount * 1e12; // Scale 6 → 18 decimals
+
+        return quote;
+    }
+
+    /// @notice Get complete user profile in one call — optimized for AI agents
+    /// @dev Replaces 5+ separate view calls (getUserLoyalty + getUserDiscount + getUserRewardRate + getCurrentFeeForUser + isVIP)
+    /// @param user The wallet address to query
+    /// @return profile All user data an agent needs for decision-making
+    function getAgentProfile(address user) external view returns (AgentProfile memory profile) {
+        UserLoyalty storage ul = loyalty[user];
+
+        // Direct loyalty fields
+        profile.totalSpent = ul.totalSpent;
+        profile.foodyEarned = ul.foodyEarned;
+        profile.referralEarned = ul.referralEarned;
+        profile.tier = ul.tier;
+        profile.referrer = ul.referrer;
+        profile.lastSwapTime = ul.lastSwapTime;
+        profile.swapCount = ul.swapCount;
+
+        // Computed fields
+        profile.discountBps = _getDiscountBps(ul.tier);
+        profile.rewardRateBps = _getRewardBps(ul.tier);
+        profile.currentFee = _calculateDynamicFee(user);
+        profile.isVIP = _checkVIPStatus(user);
+
+        // Tier progression
+        if (ul.tier == Tier.VIP) {
+            profile.nextTierThreshold = 0;
+            profile.spentToNextTier = 0;
+        } else if (ul.tier == Tier.Gold) {
+            profile.nextTierThreshold = VIP_THRESHOLD;
+            profile.spentToNextTier = VIP_THRESHOLD > ul.totalSpent ? VIP_THRESHOLD - ul.totalSpent : 0;
+        } else if (ul.tier == Tier.Silver) {
+            profile.nextTierThreshold = GOLD_THRESHOLD;
+            profile.spentToNextTier = GOLD_THRESHOLD > ul.totalSpent ? GOLD_THRESHOLD - ul.totalSpent : 0;
+        } else {
+            profile.nextTierThreshold = SILVER_THRESHOLD;
+            profile.spentToNextTier = SILVER_THRESHOLD > ul.totalSpent ? SILVER_THRESHOLD - ul.totalSpent : 0;
+        }
     }
 }

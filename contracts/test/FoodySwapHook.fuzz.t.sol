@@ -276,4 +276,28 @@ contract FoodySwapHookFuzzTest is BaseTest {
         vm.expectRevert(FoodySwapHook.CannotReferSelf.selector);
         hook.setReferrer(selfRef);
     }
+
+    // =========================================================================
+    // Fuzz 6: quoteSwap never reverts (graceful errors only)
+    // =========================================================================
+
+    /// @notice Invariant: quoteSwap NEVER reverts — always returns structured data
+    function testFuzz_QuoteSwapNeverReverts(
+        address user,
+        bytes32 restId,
+        uint256 amount
+    ) public view {
+        amount = bound(amount, 0, 100_000_000e6); // 0 to $100M
+
+        // This should NEVER revert — even for invalid restaurants
+        FoodySwapHook.SwapQuote memory quote = hook.quoteSwap(user, restId, amount);
+
+        // If not allowed, reason must be non-empty
+        if (!quote.allowed) {
+            assertGt(bytes(quote.reason).length, 0, "Denied quotes must have a reason");
+        }
+
+        // Fee should never exceed base
+        assertLe(quote.effectiveFee, hook.BASE_LP_FEE(), "Fee cannot exceed base");
+    }
 }

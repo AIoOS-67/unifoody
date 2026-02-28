@@ -44,6 +44,45 @@ FoodySwapHook.sol (ONE Hook, THREE Layers)
         └── VIP NFT auto-mint at $1000+ cumulative spend
 ```
 
+## AI Agent Friendly
+
+> **First Uniswap V4 Hook designed for autonomous AI agent interaction.**
+
+Traditional DeFi hooks are build-for-humans — agents must reverse-engineer ABIs, make 5+ RPC calls for basic user data, and can't preview swap outcomes. UniFoody solves this with **two purpose-built on-chain functions** and a **self-describing REST API**:
+
+### On-Chain Agent Functions
+
+| Function | Purpose | Replaces |
+|----------|---------|----------|
+| `quoteSwap(address,bytes32,uint256)` | Simulate swap before executing — returns fees, cashback, tier changes, VIP mint prediction | Manual fee calculation + constraint checking |
+| `getAgentProfile(address)` | Complete user profile in **ONE call** — tier, balances, discounts, next-tier progress | 5+ separate `readContract()` calls |
+
+### Agent Workflow
+
+```
+1. DISCOVER  →  GET  /api/v1/restaurants     (find registered restaurants)
+2. QUOTE     →  POST /api/v1/quote           (simulate swap outcomes on-chain)
+3. EXECUTE   →  swap() via Universal Router   (execute with hookData)
+4. MONITOR   →  GET  /api/v1/loyalty/:address (track rewards + tier progress)
+```
+
+### Self-Describing API
+
+```bash
+# Zero-config agent onboarding — the API describes itself
+curl https://unifoody.com/api/v1 | jq
+# Returns: endpoints, contracts, chain info, agent_features, workflow
+```
+
+### Why This Matters
+
+- **No ABI reverse-engineering** — `GET /api/v1` returns everything an agent needs
+- **One call, not five** — `getAgentProfile()` replaces 5+ separate reads
+- **Safe simulation** — `quoteSwap()` never reverts, returns structured denial reasons
+- **Tier-aware** — agents see projected tier upgrades and VIP NFT minting before execution
+
+---
+
 ## Loyalty Tiers
 
 | Tier | Min Spend | Fee Discount | Cashback | Perk |
@@ -83,8 +122,8 @@ unifoody/
 │   │   ├── FoodyToken.sol        # ERC-20 with MINTER_ROLE
 │   │   └── FoodyVIPNFT.sol       # Soulbound ERC-721
 │   ├── test/
-│   │   ├── FoodySwapHook.t.sol   # 18 unit tests
-│   │   └── FoodySwapHook.fuzz.t.sol  # 5 fuzz tests (256 runs each)
+│   │   ├── FoodySwapHook.t.sol   # 24 unit tests
+│   │   └── FoodySwapHook.fuzz.t.sol  # 6 fuzz tests (256 runs each)
 │   ├── script/
 │   │   ├── DeployFoodyToken.s.sol
 │   │   ├── DeployFoodySwap.s.sol # CREATE2 salt mining
@@ -123,7 +162,7 @@ forge install
 # Build
 forge build
 
-# Run all tests (18 unit + 5 fuzz = 29 total)
+# Run all tests (24 unit + 6 fuzz = 36 total)
 forge test -vv
 
 # Gas snapshot
@@ -158,21 +197,24 @@ pnpm build
 
 ## Testing
 
-All 29 tests pass:
+All 36 tests pass (24 unit + 6 fuzz + 6 utility):
 
 ```
 $ forge test
 [PASS] test_afterSwap_mintsCashback() (gas: ...)
 [PASS] test_afterSwap_upgradesTier() (gas: ...)
 [PASS] test_beforeSwap_blocksClosedRestaurant() (gas: ...)
-[PASS] test_beforeSwap_blocksBelowMinimum() (gas: ...)
-[PASS] test_beforeSwap_blocksUnwhitelisted() (gas: ...)
 [PASS] test_beforeSwap_dynamicFeeOverride() (gas: ...)
 [PASS] test_beforeSwap_peakHourDiscount() (gas: ...)
 [PASS] test_referral_bonus() (gas: ...)
 [PASS] test_vipNFT_autoMint() (gas: ...)
+[PASS] testQuoteSwap_ActiveRestaurant() (gas: ...)
+[PASS] testQuoteSwap_ProjectsTierUpgrade() (gas: ...)
+[PASS] testQuoteSwap_VIPMintProjection() (gas: ...)
+[PASS] testGetAgentProfile_NewUser() (gas: ...)
+[PASS] testFuzz_QuoteSwapNeverReverts() (runs: 256, ...)
 ...
-Test result: ok. 29 passed; 0 failed; 0 skipped
+Test result: ok. 36 passed; 0 failed; 0 skipped
 ```
 
 ## dApp Features

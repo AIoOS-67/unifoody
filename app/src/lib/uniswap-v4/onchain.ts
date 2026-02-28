@@ -1,5 +1,5 @@
 // src/lib/uniswap-v4/onchain.ts
-// On-chain read functions for FoodySwapHook data on Base Sepolia
+// On-chain read functions for FoodySwapHook data on Unichain
 // Uses viem readContract() — no wallet connection needed for reads
 
 import { createPublicClient, http, type PublicClient } from 'viem'
@@ -24,7 +24,7 @@ const isTestnet = process.env.NEXT_PUBLIC_CHAIN_MODE === 'testnet'
 
 const publicClient: PublicClient = createPublicClient({
   chain: isTestnet ? unichainSepolia : unichain,
-  transport: http(isTestnet ? 'https://sepolia.base.org' : undefined),
+  transport: http(isTestnet ? 'https://sepolia.unichain.org' : 'https://mainnet.unichain.org'),
 })
 
 // ---------------------------------------------------------------------------
@@ -214,6 +214,62 @@ export async function readRestaurant(restaurantId: `0x${string}`) {
     openHour: Number(data.openHour),
     closeHour: Number(data.closeHour),
     maxTxAmount: BigInt(data.maxTxAmount),
+  }
+}
+
+// ---------------------------------------------------------------------------
+// AI Agent Functions
+// ---------------------------------------------------------------------------
+
+/** Simulate a swap via quoteSwap() on-chain — preview fees, rewards, tier changes */
+export async function readQuoteSwap(
+  userAddress: `0x${string}`,
+  restaurantId: `0x${string}`,
+  amountUSDC: bigint
+) {
+  const data = await publicClient.readContract({
+    address: HOOK_ADDRESS as `0x${string}`,
+    abi: FOODY_SWAP_HOOK_ABI,
+    functionName: 'quoteSwap',
+    args: [userAddress, restaurantId, amountUSDC],
+  }) as any
+
+  return {
+    allowed: data.allowed as boolean,
+    reason: data.reason as string,
+    effectiveFee: Number(data.effectiveFee),
+    expectedCashbackFOODY: BigInt(data.expectedCashbackFOODY),
+    currentTier: Number(data.currentTier),
+    projectedTier: Number(data.projectedTier),
+    willMintVIP: data.willMintVIP as boolean,
+    discountBps: Number(data.discountBps),
+    rewardRateBps: Number(data.rewardRateBps),
+  }
+}
+
+/** Get complete agent profile in one call — replaces 5+ separate reads */
+export async function readAgentProfile(userAddress: `0x${string}`) {
+  const data = await publicClient.readContract({
+    address: HOOK_ADDRESS as `0x${string}`,
+    abi: FOODY_SWAP_HOOK_ABI,
+    functionName: 'getAgentProfile',
+    args: [userAddress],
+  }) as any
+
+  return {
+    totalSpent: BigInt(data.totalSpent),
+    foodyEarned: BigInt(data.foodyEarned),
+    referralEarned: BigInt(data.referralEarned),
+    tier: Number(data.tier),
+    referrer: data.referrer as `0x${string}`,
+    lastSwapTime: BigInt(data.lastSwapTime),
+    swapCount: Number(data.swapCount),
+    discountBps: Number(data.discountBps),
+    rewardRateBps: Number(data.rewardRateBps),
+    currentFee: Number(data.currentFee),
+    isVIP: data.isVIP as boolean,
+    nextTierThreshold: BigInt(data.nextTierThreshold),
+    spentToNextTier: BigInt(data.spentToNextTier),
   }
 }
 

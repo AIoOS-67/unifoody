@@ -1,5 +1,5 @@
 // src/lib/abi/foodySwapHookAbi.ts
-// ABI for FoodySwapHook view/admin functions on Base Sepolia
+// ABI for FoodySwapHook view/admin/agent functions on Unichain
 
 export const FOODY_SWAP_HOOK_ABI = [
   // ======================== View Functions ========================
@@ -114,6 +114,61 @@ export const FOODY_SWAP_HOOK_ABI = [
     stateMutability: 'view',
     inputs: [],
     outputs: [{ name: '', type: 'address' }],
+  },
+  // ======================== AI Agent Functions ========================
+  {
+    name: 'quoteSwap',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [
+      { name: 'user', type: 'address' },
+      { name: 'restaurantId', type: 'bytes32' },
+      { name: 'amountUSDC', type: 'uint256' },
+    ],
+    outputs: [
+      {
+        name: 'quote',
+        type: 'tuple',
+        components: [
+          { name: 'allowed', type: 'bool' },
+          { name: 'reason', type: 'string' },
+          { name: 'effectiveFee', type: 'uint24' },
+          { name: 'expectedCashbackFOODY', type: 'uint256' },
+          { name: 'currentTier', type: 'uint8' },
+          { name: 'projectedTier', type: 'uint8' },
+          { name: 'willMintVIP', type: 'bool' },
+          { name: 'discountBps', type: 'uint16' },
+          { name: 'rewardRateBps', type: 'uint16' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'getAgentProfile',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'user', type: 'address' }],
+    outputs: [
+      {
+        name: 'profile',
+        type: 'tuple',
+        components: [
+          { name: 'totalSpent', type: 'uint256' },
+          { name: 'foodyEarned', type: 'uint256' },
+          { name: 'referralEarned', type: 'uint256' },
+          { name: 'tier', type: 'uint8' },
+          { name: 'referrer', type: 'address' },
+          { name: 'lastSwapTime', type: 'uint64' },
+          { name: 'swapCount', type: 'uint32' },
+          { name: 'discountBps', type: 'uint16' },
+          { name: 'rewardRateBps', type: 'uint16' },
+          { name: 'currentFee', type: 'uint24' },
+          { name: 'isVIP', type: 'bool' },
+          { name: 'nextTierThreshold', type: 'uint256' },
+          { name: 'spentToNextTier', type: 'uint256' },
+        ],
+      },
+    ],
   },
   // ======================== Events ========================
   {
