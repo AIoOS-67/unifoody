@@ -1,0 +1,14 @@
+{
+  "title": "欢迎来到 FoodyePay",
+  "titleHighlight": "FoodyePay",
+  "subtitle": "Web3 驱动的未来餐饮支付",
+  "startingIn": "{{countdown}}秒后开始",
+  "skip": "跳过",
+  "connectWallet": "连接您的钱包",
+  "connectDescription": "连接 Coinbase 智能钱包开始使用",
+  "checkingRegistration": "正在检查注册状态...",
+  "autoConnecting": "自动连接中...",
+  "poweredBy": "技术支持",
+  "builtOn": "基于 Base 构建",
+  "securedBy": "Coinbase 智能钱包保障安全"
+}

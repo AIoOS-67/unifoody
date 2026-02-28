@@ -1,0 +1,49 @@
+{
+  "title": "Panel de Restaurante",
+  "welcome": "Bienvenido, {{name}}",
+  "foodyBalance": "Saldo FOODY",
+  "quickActions": {
+    "title": "Acciones Rápidas",
+    "generateQR": "Generar Código QR",
+    "paymentManagement": "Gestión de Pagos",
+    "stripeConnect": "Stripe Express",
+    "avosSettings": "Configuración AVOS"
+  },
+  "qrCode": {
+    "title": "Generar Código QR de Pago",
+    "amount": "Monto (USD)",
+    "tax": "Impuesto",
+    "total": "Total",
+    "foodyEquivalent": "Equivalente FOODY",
+    "generate": "Generar Código QR",
+    "download": "Descargar QR",
+    "generateNew": "Generar Nuevo",
+    "scanInstructions": "El cliente escanea este código para pagar"
+  },
+  "payments": {
+    "title": "Gestión de Pagos",
+    "all": "Todos",
+    "paid": "Pagados",
+    "unpaid": "Sin Pagar",
+    "noPayments": "Sin pagos encontrados",
+    "totalRevenue": "Ingresos Totales",
+    "todayRevenue": "Ingresos de Hoy",
+    "pendingPayments": "Pagos Pendientes"
+  },
+  "avos": {
+    "title": "Pedidos por Voz AI",
+    "enabled": "AVOS Activado",
+    "disabled": "AVOS Desactivado",
+    "config": "Configuración",
+    "callHistory": "Historial de Llamadas",
+    "analytics": "Analítica",
+    "liveWidget": "Llamadas en Vivo"
+  },
+  "stripe": {
+    "title": "Stripe Express",
+    "connected": "Conectado",
+    "notConnected": "No Conectado",
+    "connect": "Conectar Stripe",
+    "dashboard": "Ir al Panel de Stripe"
+  }
+}

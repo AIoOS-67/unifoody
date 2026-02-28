@@ -1,0 +1,14 @@
+{
+  "title": "Bienvenido a FoodyePay",
+  "titleHighlight": "FoodyePay",
+  "subtitle": "El futuro de los pagos en restaurantes impulsado por tecnología Web3",
+  "startingIn": "Iniciando en {{countdown}}s",
+  "skip": "Saltar",
+  "connectWallet": "Conectar Billetera",
+  "connectDescription": "Conecte su Coinbase Smart Wallet para comenzar",
+  "checkingRegistration": "Verificando estado de registro...",
+  "autoConnecting": "Conectando automáticamente...",
+  "poweredBy": "Impulsado por",
+  "builtOn": "Construido en Base",
+  "securedBy": "Protegido por Coinbase Smart Wallet"
+}

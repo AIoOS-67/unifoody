@@ -1,0 +1,50 @@
+{
+  "title": "Panel de Comensal",
+  "welcome": "Bienvenido de vuelta",
+  "foodyBalance": "Saldo FOODY",
+  "usdcBalance": "Saldo USDC",
+  "quickActions": {
+    "title": "Acciones Rápidas",
+    "scanToPay": "Escanear para Pagar",
+    "sendFoody": "Enviar FOODY",
+    "buyUsdc": "Comprar USDC",
+    "swapTokens": "Intercambiar Tokens"
+  },
+  "transactions": {
+    "title": "Historial de Transacciones",
+    "noTransactions": "Sin transacciones aún",
+    "viewAll": "Ver Todo",
+    "paid": "Pagado",
+    "received": "Recibido",
+    "sent": "Enviado",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "failed": "Fallido"
+  },
+  "rewards": {
+    "title": "Mis Recompensas",
+    "totalEarned": "Total FOODY Ganado",
+    "tier": "Nivel de Lealtad",
+    "nextTier": "Siguiente Nivel",
+    "progress": "Progreso",
+    "bronze": "Bronce",
+    "silver": "Plata",
+    "gold": "Oro",
+    "platinum": "Platino"
+  },
+  "sendFoody": {
+    "title": "Enviar FOODY a un Amigo",
+    "recipientAddress": "Dirección de Billetera del Destinatario",
+    "amount": "Cantidad",
+    "sendButton": "Enviar FOODY",
+    "success": "¡FOODY enviado exitosamente!",
+    "error": "Error al enviar FOODY"
+  },
+  "scanPay": {
+    "title": "Escanear para Pagar",
+    "instructions": "Apunte su cámara al código QR del restaurante",
+    "processing": "Procesando pago...",
+    "success": "¡Pago exitoso!",
+    "error": "Pago fallido"
+  }
+}

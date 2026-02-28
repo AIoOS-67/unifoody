@@ -1,0 +1,49 @@
+{
+  "title": "餐馆控制面板",
+  "welcome": "欢迎回来，{{name}}",
+  "foodyBalance": "FOODY 余额",
+  "quickActions": {
+    "title": "快捷操作",
+    "generateQR": "生成收款码",
+    "paymentManagement": "支付管理",
+    "stripeConnect": "Stripe Express",
+    "avosSettings": "AVOS 设置"
+  },
+  "qrCode": {
+    "title": "生成收款二维码",
+    "amount": "金额 (美元)",
+    "tax": "税费",
+    "total": "合计",
+    "foodyEquivalent": "FOODY 等价",
+    "generate": "生成二维码",
+    "download": "下载二维码",
+    "generateNew": "重新生成",
+    "scanInstructions": "顾客扫此码即可支付"
+  },
+  "payments": {
+    "title": "支付管理",
+    "all": "全部",
+    "paid": "已支付",
+    "unpaid": "未支付",
+    "noPayments": "暂无支付记录",
+    "totalRevenue": "总收入",
+    "todayRevenue": "今日收入",
+    "pendingPayments": "待处理支付"
+  },
+  "avos": {
+    "title": "AI 语音点餐",
+    "enabled": "AVOS 已启用",
+    "disabled": "AVOS 已禁用",
+    "config": "配置",
+    "callHistory": "通话记录",
+    "analytics": "数据分析",
+    "liveWidget": "实时通话"
+  },
+  "stripe": {
+    "title": "Stripe Express",
+    "connected": "已连接",
+    "notConnected": "未连接",
+    "connect": "连接 Stripe",
+    "dashboard": "前往 Stripe 面板"
+  }
+}

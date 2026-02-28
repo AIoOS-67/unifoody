@@ -1,0 +1,36 @@
+{
+  "title": "加入 FoodyePay",
+  "subtitle": "选择您的角色开始使用",
+  "diner": {
+    "title": "我是食客",
+    "description": "用加密货币支付餐费，赚取 FOODY 奖励",
+    "button": "食客注册"
+  },
+  "restaurant": {
+    "title": "我是餐馆",
+    "description": "接受加密支付，降低手续费，发展业务",
+    "button": "餐馆注册"
+  },
+  "form": {
+    "name": "姓名",
+    "email": "邮箱地址",
+    "phone": "手机号码",
+    "restaurantName": "餐馆名称",
+    "address": "地址",
+    "city": "城市",
+    "state": "州/省",
+    "zip": "邮编",
+    "country": "国家"
+  },
+  "success": {
+    "title": "欢迎加入 FoodyePay！",
+    "dinerMessage": "您的食客账户已创建。您获得了 1,000 FOODY 注册奖励！",
+    "restaurantMessage": "您的餐馆账户已创建。让我们设置您的支付系统。",
+    "goToDashboard": "前往控制面板"
+  },
+  "errors": {
+    "required": "此项为必填",
+    "invalidEmail": "请输入有效的邮箱地址",
+    "invalidPhone": "请输入有效的手机号码"
+  }
+}

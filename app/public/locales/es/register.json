@@ -1,0 +1,36 @@
+{
+  "title": "Únete a FoodyePay",
+  "subtitle": "Elige tu rol para comenzar",
+  "diner": {
+    "title": "Soy Comensal",
+    "description": "Paga comidas con cripto, gana recompensas FOODY",
+    "button": "Registrarse como Comensal"
+  },
+  "restaurant": {
+    "title": "Soy Restaurante",
+    "description": "Acepta pagos cripto, reduce comisiones, haz crecer tu negocio",
+    "button": "Registrarse como Restaurante"
+  },
+  "form": {
+    "name": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "restaurantName": "Nombre del Restaurante",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "zip": "Código Postal",
+    "country": "País"
+  },
+  "success": {
+    "title": "¡Bienvenido a FoodyePay!",
+    "dinerMessage": "Tu cuenta de comensal ha sido creada. ¡Has ganado 1,000 FOODY como bono de bienvenida!",
+    "restaurantMessage": "Tu cuenta de restaurante ha sido creada. Configuremos tu sistema de pago.",
+    "goToDashboard": "Ir al Panel"
+  },
+  "errors": {
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingrese un correo electrónico válido",
+    "invalidPhone": "Ingrese un número de teléfono válido"
+  }
+}

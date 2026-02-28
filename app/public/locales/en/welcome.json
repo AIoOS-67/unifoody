@@ -1,0 +1,14 @@
+{
+  "title": "Welcome to FoodyePay",
+  "titleHighlight": "FoodyePay",
+  "subtitle": "The future of food payments powered by Web3 technology",
+  "startingIn": "Starting in {{countdown}}s",
+  "skip": "Skip",
+  "connectWallet": "Connect Your Wallet",
+  "connectDescription": "Connect your Coinbase Smart Wallet to get started",
+  "checkingRegistration": "Checking registration status...",
+  "autoConnecting": "Auto-connecting...",
+  "poweredBy": "Powered by",
+  "builtOn": "Built on Base",
+  "securedBy": "Secured by Coinbase Smart Wallet"
+}

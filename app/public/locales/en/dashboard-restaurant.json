@@ -1,0 +1,49 @@
+{
+  "title": "Restaurant Dashboard",
+  "welcome": "Welcome back, {{name}}",
+  "foodyBalance": "FOODY Balance",
+  "quickActions": {
+    "title": "Quick Actions",
+    "generateQR": "Generate QR Code",
+    "paymentManagement": "Payment Management",
+    "stripeConnect": "Stripe Express",
+    "avosSettings": "AVOS Settings"
+  },
+  "qrCode": {
+    "title": "Generate Payment QR Code",
+    "amount": "Amount (USD)",
+    "tax": "Tax",
+    "total": "Total",
+    "foodyEquivalent": "FOODY Equivalent",
+    "generate": "Generate QR Code",
+    "download": "Download QR",
+    "generateNew": "Generate New",
+    "scanInstructions": "Customer scans this code to pay"
+  },
+  "payments": {
+    "title": "Payment Management",
+    "all": "All",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "noPayments": "No payments found",
+    "totalRevenue": "Total Revenue",
+    "todayRevenue": "Today's Revenue",
+    "pendingPayments": "Pending Payments"
+  },
+  "avos": {
+    "title": "AI Voice Ordering",
+    "enabled": "AVOS Enabled",
+    "disabled": "AVOS Disabled",
+    "config": "Configuration",
+    "callHistory": "Call History",
+    "analytics": "Analytics",
+    "liveWidget": "Live Calls"
+  },
+  "stripe": {
+    "title": "Stripe Express",
+    "connected": "Connected",
+    "notConnected": "Not Connected",
+    "connect": "Connect Stripe",
+    "dashboard": "Go to Stripe Dashboard"
+  }
+}

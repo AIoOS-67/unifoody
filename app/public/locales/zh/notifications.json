@@ -1,0 +1,25 @@
+{
+  "enableTitle": "保持更新",
+  "enableDescription": "获取订单、支付和 FOODY 奖励通知",
+  "enableButton": "开启通知",
+  "laterButton": "稍后",
+  "preferences": {
+    "title": "通知偏好设置",
+    "orderUpdates": "订单更新",
+    "orderUpdatesDesc": "订单状态变化时通知您",
+    "paymentConfirmations": "支付确认",
+    "paymentConfirmationsDesc": "支付处理完成时收到确认",
+    "promotions": "促销与优惠",
+    "promotionsDesc": "特惠活动和餐馆促销",
+    "foodyRewards": "FOODY 奖励",
+    "foodyRewardsDesc": "获得 FOODY 代币时通知",
+    "savePreferences": "保存设置",
+    "saved": "设置已保存！"
+  },
+  "messages": {
+    "orderReady": "您的订单已准备好！",
+    "paymentReceived": "已收到 ${{amount}} 的支付",
+    "foodyEarned": "您获得了 {{amount}} FOODY！",
+    "newPromotion": "{{restaurant}} 有新优惠"
+  }
+}

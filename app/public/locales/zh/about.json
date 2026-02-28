@@ -1,0 +1,23 @@
+{
+  "title": "关于 FoodyePay",
+  "subtitle": "用 Web3 技术革新餐饮支付",
+  "mission": {
+    "title": "我们的使命",
+    "description": "让餐饮支付更快、更便宜、更有回报。"
+  },
+  "story": {
+    "title": "我们的故事",
+    "description": "FoodyePay 源于一个简单的想法：如果吃饭付款也能即时获得奖励呢？"
+  },
+  "team": {
+    "title": "我们的团队",
+    "description": "由一群热爱美食和区块链技术的工程师打造。"
+  },
+  "technology": {
+    "title": "我们的技术",
+    "base": "基于 Base L2 构建",
+    "smartWallet": "Coinbase 智能钱包",
+    "uniswap": "Uniswap V3/V4 集成",
+    "foodyToken": "FOODY 代币奖励"
+  }
+}

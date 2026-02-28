@@ -1,0 +1,36 @@
+{
+  "title": "Join FoodyePay",
+  "subtitle": "Choose your role to get started",
+  "diner": {
+    "title": "I'm a Diner",
+    "description": "Pay for meals with crypto, earn FOODY rewards",
+    "button": "Sign Up as Diner"
+  },
+  "restaurant": {
+    "title": "I'm a Restaurant",
+    "description": "Accept crypto payments, reduce fees, grow your business",
+    "button": "Sign Up as Restaurant"
+  },
+  "form": {
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "restaurantName": "Restaurant Name",
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "zip": "ZIP Code",
+    "country": "Country"
+  },
+  "success": {
+    "title": "Welcome to FoodyePay!",
+    "dinerMessage": "Your diner account has been created. You've earned 1,000 FOODY as a welcome bonus!",
+    "restaurantMessage": "Your restaurant account has been created. Let's set up your payment system.",
+    "goToDashboard": "Go to Dashboard"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number"
+  }
+}

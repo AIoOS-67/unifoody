@@ -1,0 +1,50 @@
+{
+  "title": "食客控制面板",
+  "welcome": "欢迎回来",
+  "foodyBalance": "FOODY 余额",
+  "usdcBalance": "USDC 余额",
+  "quickActions": {
+    "title": "快捷操作",
+    "scanToPay": "扫码支付",
+    "sendFoody": "发送 FOODY",
+    "buyUsdc": "购买 USDC",
+    "swapTokens": "代币兑换"
+  },
+  "transactions": {
+    "title": "交易记录",
+    "noTransactions": "暂无交易记录",
+    "viewAll": "查看全部",
+    "paid": "已支付",
+    "received": "已收到",
+    "sent": "已发送",
+    "pending": "待处理",
+    "completed": "已完成",
+    "failed": "失败"
+  },
+  "rewards": {
+    "title": "我的奖励",
+    "totalEarned": "累计获得 FOODY",
+    "tier": "忠诚等级",
+    "nextTier": "下一等级",
+    "progress": "进度",
+    "bronze": "铜牌",
+    "silver": "银牌",
+    "gold": "金牌",
+    "platinum": "白金"
+  },
+  "sendFoody": {
+    "title": "发送 FOODY 给朋友",
+    "recipientAddress": "收款人钱包地址",
+    "amount": "金额",
+    "sendButton": "发送 FOODY",
+    "success": "FOODY 发送成功！",
+    "error": "发送 FOODY 失败"
+  },
+  "scanPay": {
+    "title": "扫码支付",
+    "instructions": "将摄像头对准餐馆的二维码",
+    "processing": "正在处理支付...",
+    "success": "支付成功！",
+    "error": "支付失败"
+  }
+}

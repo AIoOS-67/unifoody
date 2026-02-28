@@ -1,0 +1,23 @@
+{
+  "title": "About FoodyePay",
+  "subtitle": "Revolutionizing restaurant payments with Web3 technology",
+  "mission": {
+    "title": "Our Mission",
+    "description": "To make restaurant payments faster, cheaper, and more rewarding for everyone."
+  },
+  "story": {
+    "title": "Our Story",
+    "description": "FoodyePay was founded with a simple idea: what if paying for food could earn you rewards instantly?"
+  },
+  "team": {
+    "title": "Our Team",
+    "description": "Built by a passionate team of food lovers and blockchain engineers."
+  },
+  "technology": {
+    "title": "Our Technology",
+    "base": "Built on Base L2",
+    "smartWallet": "Coinbase Smart Wallet",
+    "uniswap": "Uniswap V3/V4 Integration",
+    "foodyToken": "FOODY Token Rewards"
+  }
+}

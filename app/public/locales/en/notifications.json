@@ -1,0 +1,25 @@
+{
+  "enableTitle": "Stay Updated",
+  "enableDescription": "Get notified about orders, payments, and FOODY rewards",
+  "enableButton": "Enable Notifications",
+  "laterButton": "Later",
+  "preferences": {
+    "title": "Notification Preferences",
+    "orderUpdates": "Order Updates",
+    "orderUpdatesDesc": "Get notified when your order status changes",
+    "paymentConfirmations": "Payment Confirmations",
+    "paymentConfirmationsDesc": "Receive confirmation when payments are processed",
+    "promotions": "Promotions & Offers",
+    "promotionsDesc": "Special deals and restaurant promotions",
+    "foodyRewards": "FOODY Rewards",
+    "foodyRewardsDesc": "Notifications when you earn FOODY tokens",
+    "savePreferences": "Save Preferences",
+    "saved": "Preferences saved!"
+  },
+  "messages": {
+    "orderReady": "Your order is ready!",
+    "paymentReceived": "Payment of ${{amount}} received",
+    "foodyEarned": "You earned {{amount}} FOODY!",
+    "newPromotion": "New deal available at {{restaurant}}"
+  }
+}

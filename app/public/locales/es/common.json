@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "forRestaurants": "Para Restaurantes",
+    "forDiners": "Para Comensales",
+    "ourStory": "Nuestra Historia",
+    "app": "App",
+    "aboutUs": "Sobre Nosotros",
+    "contactUs": "Contáctenos",
+    "technology": "Tecnología",
+    "openMenu": "Abrir menú"
+  },
+  "footer": {
+    "solutions": "Soluciones",
+    "company": "Empresa",
+    "resources": "Recursos",
+    "legal": "Legal",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "risk": "Aviso de Riesgo",
+    "copyright": "\u00a9 {{year}} FoodyePay Technology, Inc. Todos los derechos reservados."
+  },
+  "wallet": {
+    "connect": "Conectar Billetera",
+    "connectDescription": "Conecte su Coinbase Smart Wallet para comenzar",
+    "createWallet": "Crear Coinbase Smart Wallet",
+    "connected": "¡Billetera Conectada!",
+    "checking": "Verificando Billetera...",
+    "balance": "Saldo",
+    "smartWallet": "Coinbase Smart Wallet"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文",
+    "es": "Español",
+    "select": "Idioma"
+  },
+  "pwa": {
+    "installTitle": "Instalar FoodyePay",
+    "installDescription": "Agregue FoodyePay a su pantalla de inicio para la mejor experiencia",
+    "installButton": "Instalar",
+    "dismissButton": "Ahora no",
+    "offlineTitle": "Sin Conexión",
+    "offlineMessage": "Por favor verifique su conexión a internet e intente de nuevo.",
+    "retryButton": "Reintentar"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No",
+    "or": "o",
+    "learnMore": "Más Información",
+    "getStarted": "Comenzar",
+    "signUp": "Registrarse"
+  }
+}

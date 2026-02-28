@@ -1,0 +1,50 @@
+{
+  "title": "Diner Dashboard",
+  "welcome": "Welcome back",
+  "foodyBalance": "FOODY Balance",
+  "usdcBalance": "USDC Balance",
+  "quickActions": {
+    "title": "Quick Actions",
+    "scanToPay": "Scan to Pay",
+    "sendFoody": "Send FOODY",
+    "buyUsdc": "Buy USDC",
+    "swapTokens": "Swap Tokens"
+  },
+  "transactions": {
+    "title": "Transaction History",
+    "noTransactions": "No transactions yet",
+    "viewAll": "View All",
+    "paid": "Paid",
+    "received": "Received",
+    "sent": "Sent",
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "rewards": {
+    "title": "My Rewards",
+    "totalEarned": "Total FOODY Earned",
+    "tier": "Loyalty Tier",
+    "nextTier": "Next Tier",
+    "progress": "Progress",
+    "bronze": "Bronze",
+    "silver": "Silver",
+    "gold": "Gold",
+    "platinum": "Platinum"
+  },
+  "sendFoody": {
+    "title": "Send FOODY to Friend",
+    "recipientAddress": "Recipient Wallet Address",
+    "amount": "Amount",
+    "sendButton": "Send FOODY",
+    "success": "FOODY sent successfully!",
+    "error": "Failed to send FOODY"
+  },
+  "scanPay": {
+    "title": "Scan to Pay",
+    "instructions": "Point your camera at the restaurant's QR code",
+    "processing": "Processing payment...",
+    "success": "Payment successful!",
+    "error": "Payment failed"
+  }
+}
