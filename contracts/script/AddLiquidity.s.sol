@@ -24,9 +24,10 @@ contract AddLiquidityScript is Script {
 
     uint24 constant LP_FEE = 0x800000;
     int24 constant TICK_SPACING = 60;
-    int24 constant TARGET_TICK = -345420;
+    int24 constant TARGET_TICK = -368460; // 1 FOODY ≈ $0.0001
 
-    uint256 constant FOODY_AMOUNT = 20_000e18;
+    // Liquidity: 200K FOODY + ~20 USDC at $0.0001/FOODY
+    uint256 constant FOODY_AMOUNT = 200_000e18;
     uint256 constant USDC_AMOUNT = 20e6;
 
     function run() external {

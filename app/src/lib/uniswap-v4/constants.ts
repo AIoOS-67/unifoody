@@ -21,7 +21,7 @@ const SEPOLIA = {
   QUOTER: '0x56dcd40a3f2d466f48e7f48bdbe5cc9b92ae4472' as `0x${string}`,
   STATE_VIEW: '0xc199f1072a74d4e905aba1a84d9a45e2546b6222' as `0x${string}`,
   PERMIT2: '0x000000000022D473030F116dDEE9F6B43aC78BA3' as `0x${string}`,
-  FOODY_TOKEN: '0xf6f353078243c50eCca9af4D751A45816607Eb2a' as Currency,          // Deployed
+  FOODY_TOKEN: '0x05bc48046D43653495e89E006BE52890880ae1De' as Currency,          // Deployed (v3 — 300B supply)
   USDC_TOKEN: '0x31d0220469e10c4E71834a79b1f276d740d3768F' as Currency,           // USDC on Unichain Sepolia
   HOOK: '0x4F0Be128768E33c402B7D5Df04Fd7923b1ba50C0' as `0x${string}`,            // Deployed (v2)
   VIP_NFT: '0xc7415f2986e58a6158BbF30780E393C54622e54e' as `0x${string}`,         // Deployed (v2)
@@ -255,5 +255,5 @@ export const DEMO_RESTAURANTS: Record<string, { name: string; status: 'open' | '
 }
 
 /** Default FOODY price used when the on-chain oracle is unavailable */
-export const FALLBACK_FOODY_PRICE_USD = 0.001  // 1 FOODY = $0.001 (matches pool price)
-export const FALLBACK_FOODY_PER_USD = 1000      // 1 USD = 1000 FOODY
+export const FALLBACK_FOODY_PRICE_USD = 0.0001  // 1 FOODY = $0.0001 (matches pool price)
+export const FALLBACK_FOODY_PER_USD = 10000      // 1 USD = 10,000 FOODY

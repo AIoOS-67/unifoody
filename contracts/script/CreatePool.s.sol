@@ -38,10 +38,10 @@ contract CreatePoolScript is Script {
     // Pool Configuration
     uint24 constant LP_FEE = 0x800000; // DYNAMIC_FEE_FLAG
     int24 constant TICK_SPACING = 60;
-    int24 constant TARGET_TICK = -345420; // 1 FOODY ~ 0.001 USDC
+    int24 constant TARGET_TICK = -368460; // 1 FOODY ~ $0.0001 USDC
 
-    // Liquidity amounts (testnet: 20 USDC + 20K FOODY at 1 FOODY = $0.001)
-    uint256 constant FOODY_AMOUNT = 20_000e18;
+    // Liquidity amounts (testnet: 20 USDC + 200K FOODY at 1 FOODY = $0.0001)
+    uint256 constant FOODY_AMOUNT = 200_000e18;
     uint256 constant USDC_AMOUNT = 20e6;
 
     function run() external {

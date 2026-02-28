@@ -21,8 +21,8 @@ contract FoodyToken is ERC20, AccessControl {
     /// @notice Role identifier for addresses allowed to mint new FOODY tokens
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
-    /// @notice Maximum total supply cap: 1 billion FOODY
-    uint256 public constant MAX_SUPPLY = 1_000_000_000 * 1e18;
+    /// @notice Maximum total supply cap: 300 billion FOODY (3000亿)
+    uint256 public constant MAX_SUPPLY = 300_000_000_000 * 1e18;
 
     /// @notice Emitted when tokens are minted as cashback rewards
     event CashbackMinted(address indexed to, uint256 amount, address indexed minter);
