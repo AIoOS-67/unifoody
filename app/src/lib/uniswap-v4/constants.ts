@@ -21,10 +21,10 @@ const SEPOLIA = {
   QUOTER: '0x333e3C607B141b18fF6dE9f258Db6E77Fe7491E0' as `0x${string}`,
   STATE_VIEW: '0x86e8631a016f9068c3f085faf484ee3f5fdee8f2' as `0x${string}`,
   PERMIT2: '0x000000000022D473030F116dDEE9F6B43aC78BA3' as `0x${string}`,
-  FOODY_TOKEN: '0x0000000000000000000000000000000000000000' as Currency,          // Deploy first
+  FOODY_TOKEN: '0xf6f353078243c50eCca9af4D751A45816607Eb2a' as Currency,          // Deployed
   USDC_TOKEN: '0x078D782b760474a361dDA0AF3839290b0EF57AD6' as Currency,           // USDC on Unichain
-  HOOK: '0x0000000000000000000000000000000000000000' as `0x${string}`,            // Deploy first
-  VIP_NFT: '0x0000000000000000000000000000000000000000' as `0x${string}`,         // Deploy first
+  HOOK: '0xA25e61B83915D2e7E40167FB951C7Aa0a5b390C0' as `0x${string}`,            // Deployed
+  VIP_NFT: '0x4d70E1D2A2828438a03ce93394EAFf875B923e61' as `0x${string}`,         // Deployed
   CHAIN_ID: 1301,
   BLOCK_EXPLORER: 'https://sepolia.uniscan.xyz',
 } as const
