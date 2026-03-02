@@ -120,9 +120,10 @@ contract FoodySwapHook is BaseHook {
     uint16 public constant VIP_REWARD_BPS = 1000; // 10%
 
     /// @notice Fee splitting (basis points, must sum to 10000)
-    uint16 public constant RESTAURANT_FEE_BPS = 9000; // 90% to restaurant
-    uint16 public constant PLATFORM_FEE_BPS = 500; // 5% to platform
-    uint16 public constant REWARD_POOL_FEE_BPS = 500; // 5% to reward pool
+    /// Total platform take = 1% (PLATFORM + REWARD_POOL), lower than Stripe's 2.9%
+    uint16 public constant RESTAURANT_FEE_BPS = 9900; // 99% to restaurant
+    uint16 public constant PLATFORM_FEE_BPS = 50; // 0.5% to platform
+    uint16 public constant REWARD_POOL_FEE_BPS = 50; // 0.5% to reward pool
 
     /// @notice Referral bonus rates (basis points)
     uint16 public constant REFERRER_BONUS_BPS = 100; // 1% to referrer
