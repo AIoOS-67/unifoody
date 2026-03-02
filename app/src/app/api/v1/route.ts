@@ -42,6 +42,15 @@ const API_DOCS = {
     },
     {
       method: 'POST',
+      path: '/api/v1/faucet',
+      description: 'Request testnet USDC + ETH for AI agent onboarding (testnet only, 1 req/hour per address)',
+      body: {
+        wallet: '(required) 0x… recipient address',
+      },
+      returns: 'usdc_tx, eth_tx, usdc_amount, eth_amount, wallet, explorer links',
+    },
+    {
+      method: 'POST',
       path: '/api/v1/quote',
       description: 'Simulate a swap before executing — preview fees, cashback, tier changes (on-chain)',
       body: {
@@ -101,6 +110,7 @@ const API_DOCS = {
     ],
     api_quote: 'POST /api/v1/quote — REST wrapper for quoteSwap + getAgentProfile',
     workflow: [
+      '0. FAUCET  — POST /api/v1/faucet { wallet } — get testnet USDC + gas (first time only)',
       '1. DISCOVER — GET /api/v1/restaurants',
       '2. QUOTE   — POST /api/v1/quote { wallet, restaurantId, amountUSDC }',
       '3. EXECUTE — swap() via Universal Router with hookData',
