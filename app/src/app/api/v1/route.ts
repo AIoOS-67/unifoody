@@ -51,6 +51,17 @@ const API_DOCS = {
     },
     {
       method: 'POST',
+      path: '/api/v1/swap',
+      description: 'Execute USDC→FOODY swap (treasury-sponsored). Hook tracks loyalty for your wallet, FOODY sent to you.',
+      body: {
+        wallet: '(required) 0x… agent wallet (receives FOODY + loyalty)',
+        restaurantId: '(optional) bytes32 hex — defaults to Sichuan Garden',
+        amountUSDC: '(required) amount in USD, e.g. 5.0 (max 100)',
+      },
+      returns: 'approval_tx, swap_tx, quote preview, explorer links, next_steps',
+    },
+    {
+      method: 'POST',
       path: '/api/v1/quote',
       description: 'Simulate a swap before executing — preview fees, cashback, tier changes (on-chain)',
       body: {
@@ -113,7 +124,7 @@ const API_DOCS = {
       '0. FAUCET  — POST /api/v1/faucet { wallet } — get testnet USDC + gas (first time only)',
       '1. DISCOVER — GET /api/v1/restaurants',
       '2. QUOTE   — POST /api/v1/quote { wallet, restaurantId, amountUSDC }',
-      '3. EXECUTE — swap() via Universal Router with hookData',
+      '3. EXECUTE — POST /api/v1/swap { wallet, restaurantId, amountUSDC }',
       '4. MONITOR — GET /api/v1/loyalty/:address',
     ],
     self_describing: 'GET /api/v1 returns this full schema — zero-config agent onboarding',
